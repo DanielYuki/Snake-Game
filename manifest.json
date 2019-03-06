@@ -1,0 +1,17 @@
+{
+  "name": "Another Snake Game",
+  "short_name": "Snake Game",
+  "description": "Just Another Snake Game... dur",
+  "icons": [
+    {
+      "src": "img/imagem.png",
+      "sizes": "XxX",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF"
+}
