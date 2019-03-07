@@ -3,7 +3,7 @@ const canvas = document.querySelector('#game');
 const ctx = canvas.getContext("2d");
 
 let canvasSize = canvas.width;
-const squareSize = (canvasSize / 16);
+const squareSize = (canvasSize / 20);
 
 let face;
 let score = 0;
@@ -17,14 +17,13 @@ snake[0] = {
 
 // food is an object
 let food = {
-    x: Math.floor((Math.random() * 16)) * squareSize,
-    y: Math.floor((Math.random() * 16)) * squareSize
+    x: Math.floor((Math.random() * 20)) * squareSize,
+    y: Math.floor((Math.random() * 20)) * squareSize
 }
 
+document.addEventListener('keydown', faceDirection);
 
-document.addEventListener('keydown', faceection);
-
-function faceection(event) {
+function faceDirection(event) {
     let key = event.keyCode;
     if (key == 37 && face != 'RIGHT') {
         face = 'LEFT'
@@ -39,19 +38,27 @@ function faceection(event) {
     }
 }
 
+function bumpedInto(head, snake) {
+    for (let i = 0; i < snake.length; i++) {
+        if (head.x == snake[i].x && head.y == snake[i].y) {
+            return true
+        }
+    }
+}
+
 function draw() {
-    ctx.fillStyle = "white"
+    ctx.fillStyle = "lightgray"
     ctx.fillRect(0, 0, canvasSize, canvasSize)
 
     for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = (i == 0) ? "black" : "gray";
+        ctx.fillStyle = (i == 0) ? "black" : "#323232";
         ctx.fillRect(snake[i].x, snake[i].y, squareSize, squareSize);
-
-        ctx.strokeStyle = 'red';
-        ctx.strokeRect(snake[i].x, snake[i].y, squareSize, squareSize);
-
+        // ctx.strokeStyle = 'red';
+        // ctx.strokeRect(snake[i].x, snake[i].y, squareSize, squareSize);
     }
-    ctx.fillStyle = 'green'
+    ctx.fillStyle = 'lightgreen'
+    ctx.strokeStyle = 'green'
+    ctx.strokeRect(food.x, food.y, squareSize, squareSize)
     ctx.fillRect(food.x, food.y, squareSize, squareSize)
 
 
@@ -65,19 +72,12 @@ function draw() {
 
     if (snakeHeadX == food.x && snakeHeadY == food.y) {
         score++
-        console.log(score)
         food = {
-            x: Math.floor((Math.random() * 16)) * squareSize,
-            y: Math.floor((Math.random() * 16)) * squareSize
+            x: Math.floor((Math.random() * 20)) * squareSize,
+            y: Math.floor((Math.random() * 20)) * squareSize
         }
     } else {
         snake.pop();
-    }
-
-    if (snakeHeadX < 0 || snakeHeadX >= canvasSize ||
-        snakeHeadY < 0 || snakeHeadY >= canvasSize) {
-        clearInterval(gameOn)
-        console.log('over')
     }
 
     let newSnakeHeadPosition = {
@@ -85,6 +85,13 @@ function draw() {
         y: snakeHeadY
     }
 
+    if (snakeHeadX < 0 || snakeHeadX >= canvasSize ||
+        snakeHeadY < 0 || snakeHeadY >= canvasSize ||
+        bumpedInto(newSnakeHeadPosition, snake)) {
+        clearInterval(gameOn)
+        console.log('over')
+    }
+    
     snake.unshift(newSnakeHeadPosition)
 }
 
