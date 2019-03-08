@@ -31,10 +31,27 @@ table{
     height: 150px; */
     background-color: lightgray;
     border-radius: 50%;
+    padding: 10px;
 }
 
 table th{
     width: 50px;
     height: 50px;
-    padding: 0;
+}
+
+.dpad {
+    background-color: gray;
+}
+
+#upButton{
+    border-radius: 10px 10px 0 0;
+}
+#leftButton{
+    border-radius: 10px 0 0 10px;
+}
+#rightButton{
+    border-radius: 0 10px 10px 0;
+}
+#downButton{
+    border-radius: 0 0 10px 10px;
 }

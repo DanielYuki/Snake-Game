@@ -5,20 +5,40 @@ const ctx = canvas.getContext("2d");
 let canvasSize = canvas.width;
 const squareSize = (canvasSize / 20);
 
-let face;
 let score = 0;
 
 // Snake is an array
 let snake = [];
 snake[0] = {
-    x: 8 * squareSize,
-    y: 8 * squareSize
+    x: (canvasSize / 2),
+    y: (canvasSize / 2)
 }
 
 // food is an object
 let food = {
     x: Math.floor((Math.random() * 20)) * squareSize,
     y: Math.floor((Math.random() * 20)) * squareSize
+}
+
+
+let face;
+
+
+let upButton = document.querySelector('#upButton');
+let leftButton = document.querySelector('#leftButton');
+let rightButton = document.querySelector('#rightButton');
+let downButton = document.querySelector('#downButton');
+upButton.onclick = () => {
+    if (face != "DOWN") face = 'UP'
+}
+leftButton.onclick = () => {
+    if (face != "RIGHT") face = 'LEFT'
+}
+rightButton.onclick = () => {
+    if (face != "LEFT") face = 'RIGHT'
+}
+downButton.onclick = () => {
+    if (face != "UP") face = 'DOWN'
 }
 
 document.addEventListener('keydown', faceDirection);
@@ -91,7 +111,7 @@ function draw() {
         clearInterval(gameOn)
         console.log('over')
     }
-    
+
     snake.unshift(newSnakeHeadPosition)
 }
 
