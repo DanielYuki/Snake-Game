@@ -43,6 +43,7 @@ downButton.onclick = () => {
 
 document.addEventListener('keydown', faceDirection);
 
+let cheat = 'OFF'
 function faceDirection(event) {
     let key = event.keyCode;
     if (key == 37 && face != 'RIGHT') {
@@ -56,6 +57,9 @@ function faceDirection(event) {
     else if (key == 40 && face != "UP") {
         face = 'DOWN'
     }
+    else if(key == 32){
+        cheat == 'OFF' ? cheat = 'ON' : cheat = 'OFF'
+    }
 }
 
 function bumpedInto(head, snake) {
@@ -66,18 +70,32 @@ function bumpedInto(head, snake) {
     }
 }
 
+function foodGen(snake) {
+    food = {
+        x: Math.floor((Math.random() * 20)) * squareSize,
+        y: Math.floor((Math.random() * 20)) * squareSize
+    }
+    for (let i = 0; i < snake.length; i++) {
+        if (food.x == snake[i].x && food.y == snake[i].y) {
+            food = {
+                x: Math.floor((Math.random() * 20)) * squareSize,
+                y: Math.floor((Math.random() * 20)) * squareSize
+            }
+        }
+    }
+}
+
 function draw() {
-    ctx.fillStyle = "lightgray"
+    ctx.fillStyle = "#f0f7da"
     ctx.fillRect(0, 0, canvasSize, canvasSize)
 
     for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = (i == 0) ? "black" : "#323232";
+        ctx.fillStyle = (i == 0) ? "#234d20" : "#36802d	";
         ctx.fillRect(snake[i].x, snake[i].y, squareSize, squareSize);
-        // ctx.strokeStyle = 'red';
-        // ctx.strokeRect(snake[i].x, snake[i].y, squareSize, squareSize);
     }
-    ctx.fillStyle = 'lightgreen'
-    ctx.strokeStyle = 'green'
+
+    ctx.fillStyle = '#ff3232'
+    ctx.strokeStyle = 'red'
     ctx.strokeRect(food.x, food.y, squareSize, squareSize)
     ctx.fillRect(food.x, food.y, squareSize, squareSize)
 
@@ -92,11 +110,8 @@ function draw() {
 
     if (snakeHeadX == food.x && snakeHeadY == food.y) {
         score++
-        food = {
-            x: Math.floor((Math.random() * 20)) * squareSize,
-            y: Math.floor((Math.random() * 20)) * squareSize
-        }
-    } else {
+        foodGen(snake)
+    } else if(cheat == 'OFF') {
         snake.pop();
     }
 
@@ -114,7 +129,6 @@ function draw() {
 
     snake.unshift(newSnakeHeadPosition)
 }
-
 
 let gameOn = setInterval(draw, 100);
 
