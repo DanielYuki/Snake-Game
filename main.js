@@ -6,6 +6,8 @@ let canvasSize = canvas.width;
 const squareSize = (canvasSize / 24);
 
 let score = 0;
+let fruitsEaten = 0;
+let hiScore = localStorage.getItem('hiScore');
 
 // Snake is an array
 let snake = [];
@@ -111,14 +113,20 @@ function draw() {
     if (face == 'RIGHT') { snakeHeadX += squareSize }
     if (face == 'DOWN') { snakeHeadY += squareSize }
 
+    let domScore = document.querySelector('#score');
+    let domHiScore = document.querySelector('#hiScore');
     if (snakeHeadX == food.x && snakeHeadY == food.y) {
-        let domScore = document.querySelector('#score');
         score++
-        domScore.textContent = `Score: ${score}`
+        score > hiScore ? hiScore = score : '';
         foodGen(snake)
     } else if (cheat == 'OFF') {
+        localStorage.getItem('hiScore') == null ? hiScore = 0: '';
         snake.pop();
     }
+
+    localStorage.setItem('hiScore',hiScore)
+    domScore.textContent = `Score:${score}`
+    domHiScore.textContent = localStorage.getItem('hiScore')
 
     let newSnakeHeadPosition = {
         x: snakeHeadX,

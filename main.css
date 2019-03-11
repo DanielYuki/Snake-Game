@@ -37,15 +37,24 @@ main{
 }
 
 main > div{
-    border-bottom: 2px solid black;
-    width: calc(100% - 20px);
+    /* border-bottom: 2px solid black; */
+    width: 100%;
     justify-content: space-between;
     display: flex;
     /* font-weight: bold; */
-    padding: 0px 10px;
-    margin-bottom: 4px;
-    font-size: 20pt;
-    font-family: 'Teko',sans-serif;
+    margin-bottom: 3px;
+    font-size: 11pt;
+    font-family: 'Press Start 2P', sans-serif;
+}
+
+main div div{
+    justify-content: center;
+    display: flex;
+    margin: 0 0 1px 0;
+}
+
+#hiScore{
+    margin-left: 3px;
 }
 
 section{
@@ -65,8 +74,10 @@ table{
 }
 
 table th{
-    width: 55px;
-    height: 55px;
+    width: 10vh;
+    height: 10vh;
+    /* width: 55px;
+    height: 55px; */
 }
 
 .dpad {
