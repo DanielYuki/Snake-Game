@@ -5,8 +5,8 @@ const ctx = canvas.getContext("2d");
 let canvasSize = canvas.width;
 const squareSize = (canvasSize / 24);
 
-let score = 0;
 let fruitsEaten = 0;
+let multiplier = 1;
 let hiScore = localStorage.getItem('hiScore');
 
 // Snake is an array
@@ -108,23 +108,24 @@ function draw() {
     let snakeHeadX = snake[0].x;
     let snakeHeadY = snake[0].y;
 
-    if (face == 'LEFT') { snakeHeadX -= squareSize }
-    if (face == 'UP') { snakeHeadY -= squareSize }
-    if (face == 'RIGHT') { snakeHeadX += squareSize }
-    if (face == 'DOWN') { snakeHeadY += squareSize }
+    (face == 'LEFT') ? snakeHeadX -= squareSize : '';
+    (face == 'UP') ? snakeHeadY -= squareSize : '';
+    (face == 'RIGHT') ? snakeHeadX += squareSize : '';
+    (face == 'DOWN') ? snakeHeadY += squareSize : '';
 
+    let score = ((fruitsEaten * 10) * multiplier);
     let domScore = document.querySelector('#score');
     let domHiScore = document.querySelector('#hiScore');
     if (snakeHeadX == food.x && snakeHeadY == food.y) {
-        score++
-        score > hiScore ? hiScore = score : '';
+        fruitsEaten++
         foodGen(snake)
     } else if (cheat == 'OFF') {
-        localStorage.getItem('hiScore') == null ? hiScore = 0: '';
+        localStorage.getItem('hiScore') == null ? hiScore = 0 : '';
         snake.pop();
     }
 
-    localStorage.setItem('hiScore',hiScore)
+    score > hiScore ? hiScore = score : '';
+    localStorage.setItem('hiScore', hiScore)
     domScore.textContent = `Score:${score}`
     domHiScore.textContent = localStorage.getItem('hiScore')
 
@@ -136,14 +137,48 @@ function draw() {
     if (snakeHeadX < 0 || snakeHeadX >= canvasSize ||
         snakeHeadY < 0 || snakeHeadY >= canvasSize ||
         bumpedInto(newSnakeHeadPosition, snake)) {
-        clearInterval(gameOn)
-        console.log('over')
+        gameOver()
     }
 
     snake.unshift(newSnakeHeadPosition)
 }
 
 let gameOn = setInterval(draw, 100);
+
+
+let dPadCenterDefault = document.querySelector('#centerDefault')
+let dPadCenterRetry = document.querySelector('#centerRetry')
+let gameOverScreen = document.querySelector('#gameOver')
+
+function gameOver() {
+    clearInterval(gameOn)
+    dPadCenterDefault.style.display = 'none';
+    dPadCenterRetry.style.display = 'table-cell';
+    gameOverScreen.style.display = 'flex'
+    console.log('over')
+    dPadCenterRetry.onclick = () => {
+        reset()
+    }
+}
+
+function reset(){
+    snake = [];
+    snake[0] = {
+        x: (canvasSize / 2),
+        y: (canvasSize / 2)
+    }
+    fruitsEaten = 0;
+    score = 0;
+    food = {
+        x: Math.floor((Math.random() * 24)) * squareSize,
+        y: Math.floor((Math.random() * 24)) * squareSize
+    }
+    gameOn = setInterval(draw, 100);
+    face = 'STOP';
+    dPadCenterDefault.style.display = 'table-cell';
+    dPadCenterRetry.style.display = 'none';
+    gameOverScreen.style.display = 'none'
+}
 
 
 // Register serviceworker
