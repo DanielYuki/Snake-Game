@@ -3,7 +3,7 @@ const canvas = document.querySelector('#game');
 const ctx = canvas.getContext("2d");
 
 let canvasSize = canvas.width;
-const squareSize = (canvasSize / 20);
+const squareSize = (canvasSize / 24);
 
 let score = 0;
 
@@ -16,8 +16,8 @@ snake[0] = {
 
 // food is an object
 let food = {
-    x: Math.floor((Math.random() * 20)) * squareSize,
-    y: Math.floor((Math.random() * 20)) * squareSize
+    x: Math.floor((Math.random() * 24)) * squareSize,
+    y: Math.floor((Math.random() * 24)) * squareSize
 }
 
 
@@ -57,7 +57,7 @@ function faceDirection(event) {
     else if (key == 40 && face != "UP") {
         face = 'DOWN'
     }
-    else if(key == 32){
+    else if (key == 32) {
         cheat == 'OFF' ? cheat = 'ON' : cheat = 'OFF'
     }
 }
@@ -72,14 +72,14 @@ function bumpedInto(head, snake) {
 
 function foodGen(snake) {
     food = {
-        x: Math.floor((Math.random() * 20)) * squareSize,
-        y: Math.floor((Math.random() * 20)) * squareSize
+        x: Math.floor((Math.random() * 24)) * squareSize,
+        y: Math.floor((Math.random() * 24)) * squareSize
     }
     for (let i = 0; i < snake.length; i++) {
         if (food.x == snake[i].x && food.y == snake[i].y) {
             food = {
-                x: Math.floor((Math.random() * 20)) * squareSize,
-                y: Math.floor((Math.random() * 20)) * squareSize
+                x: Math.floor((Math.random() * 24)) * squareSize,
+                y: Math.floor((Math.random() * 24)) * squareSize
             }
         }
     }
@@ -92,6 +92,9 @@ function draw() {
     for (let i = 0; i < snake.length; i++) {
         ctx.fillStyle = (i == 0) ? "#234d20" : "#36802d	";
         ctx.fillRect(snake[i].x, snake[i].y, squareSize, squareSize);
+        //better snake ?
+        ctx.strokeStyle = '#f0f7da'
+        ctx.strokeRect(snake[i].x, snake[i].y, squareSize, squareSize);
     }
 
     ctx.fillStyle = '#ff3232'
@@ -109,9 +112,11 @@ function draw() {
     if (face == 'DOWN') { snakeHeadY += squareSize }
 
     if (snakeHeadX == food.x && snakeHeadY == food.y) {
+        let domScore = document.querySelector('#score');
         score++
+        domScore.textContent = `Score: ${score}`
         foodGen(snake)
-    } else if(cheat == 'OFF') {
+    } else if (cheat == 'OFF') {
         snake.pop();
     }
 

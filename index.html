@@ -53,7 +53,8 @@
     <meta name="msapplication-TileColor" content="#c9df8a">
     <meta name="msapplication-TileImage" content="img/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#c9df8a">
-
+    
+    <link href="https://fonts.googleapis.com/css?family=Teko" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css"
         integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css"
@@ -69,7 +70,11 @@
             <h1>Snake Game</h1>
         </header> -->
         <main>
-            <canvas id="game" width="300" height="300"></canvas>
+            <div>
+                <span id="score">Score: 0</span>
+                <span id="hiScore">Hi-Score: 0</span>
+            </div>
+            <canvas id="game" width="300" height="300" style="border: 2px solid black"></canvas>
         </main>
         <section>
             <table>
