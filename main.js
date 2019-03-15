@@ -161,7 +161,7 @@ function gameOver() {
     }
 }
 
-function reset(){
+function reset() {
     snake = [];
     snake[0] = {
         x: (canvasSize / 2),
@@ -178,6 +178,31 @@ function reset(){
     dPadCenterDefault.style.display = 'table-cell';
     dPadCenterRetry.style.display = 'none';
     gameOverScreen.style.display = 'none'
+}
+
+
+if ( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent.toLowerCase())) {
+    console.log('not mobile')
+    let howtoPlay = document.querySelector('#howToPlayPc')
+    howtoPlay.style.display = 'flex';
+    // setTimeout(timeOutModal = () => {howtoPlay.style.display = 'none'}, 10000);
+};
+
+// Detects if is iOS
+const isIos = () => {
+    let userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+}
+
+// Detects if device is in standalone mode
+const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+// Checks if should display install popup notification:
+if (isIos() && !isInStandaloneMode()) {
+    let showModal = document.querySelector('.iosAlertBoxWebApp');
+    showModal.style.animation = 'show 8s ease-in-out 2s'
+    showModal.style.display = 'flex'
+    setTimeout(timeOutModal = () => { showModal.style.display = 'none' }, 10000)
 }
 
 

@@ -17,16 +17,47 @@ html,body{
     display: flex;
 }
 
-#gameOver{
+#howToPlayPc{
     display: none;
+    right: 70%;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.keyboard{
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+
+#keyboardUp{
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    top: 3px;
+}
+#keyboardLeft{
+    border-radius: 5px 0 0 5px;
+    position: relative;
+    left: 3px;
+}
+#keyboardRight{
+    border-radius: 0 5px 5px 0;
+    position: relative;
+    right: 3px;
+}
+
+.modal{
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     position: absolute;
     top: 25%;
-    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 30px;
     padding: 20px;
+}
+
+#gameOver{
+    display: none;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 h2, h4{
@@ -73,14 +104,14 @@ section{
     display: flex;
 }
 
-table{
+#dPad{
     background-color: lightgray;
     border-radius: 50%;
     padding: 10px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
-table th{
+#dPad th{
     width: 10vh;
     height: 10vh;
     /* width: 55px;
@@ -89,6 +120,7 @@ table th{
 
 .dpad {
     background-color: gray;
+    cursor: pointer;
 }
 
 #upButton{
@@ -113,4 +145,54 @@ table th{
 }
 #centerRetry{
     display: none;
+}
+
+
+.iosAlertBoxWebApp{
+    position: absolute;
+    bottom: -15%;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    z-index: 5;
+    opacity: 0;
+    display: none;
+}
+
+.actualContent{
+    height: 8vh;
+    width: 95vw;
+    padding: 5px;
+    font-size: 10pt;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.iosAlertBoxWebApp i{
+    font-size: 6vh;
+    color: gray;
+    margin: 5px;
+}
+
+.triangleDown {
+    align-self: center;
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid lightgray;
+}
+
+@keyframes show{
+    10%, 90%{
+        transform: translateY(-115%);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 0;
+    }
 }

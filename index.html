@@ -66,7 +66,22 @@
 
 <body>
     <div id="container">
-        <div id="gameOver">
+        <div id="howToPlayPc" class="modal">
+            <h2>MOVE:</h2>
+            <table>
+                <tr>
+                    <th></th>
+                    <th id="keyboardUp" class="keyboard"><i class="fas fa-arrow-up fa-2x"></i></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th id="keyboardLeft" class="keyboard"><i class="fas fa-arrow-left fa-2x"></i></th>
+                    <th id="keyboardDown" class="keyboard"><i class="fas fa-arrow-down fa-2x"></i></th>
+                    <th id="keyboardRight" class="keyboard"><i class="fas fa-arrow-right fa-2x"></i></th>
+                </tr>
+            </table>
+        </div>
+        <div id="gameOver" class="modal">
             <h2>GAME OVER</h2>
             <!-- <i class="fas fa-redo-alt"></i> -->
             <h4>TRY AGAIN?</h4>
@@ -82,7 +97,7 @@
             <canvas id="game" width="300" height="300" style="border: 2px solid black"></canvas>
         </main>
         <section>
-            <table>
+            <table id="dPad">
                 <tr>
                     <th></th>
                     <th id="upButton" class="dpad"><i class="fas fa-angle-up fa-3x"></i></th>
@@ -101,6 +116,13 @@
                 </tr>
             </table>
         </section>
+        <div class="iosAlertBoxWebApp">
+            <div class="actualContent">
+                <i class="fa fa-plus-square" aria-hidden="true"></i>
+                <p>Install this WebApp on your iPhone: tap on Share Button then add to HomeScreen.</p>
+            </div>
+            <div class="triangleDown"></div>
+        </div>
     </div>
 </body>
 
