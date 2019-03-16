@@ -60,6 +60,11 @@ html,body{
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+#gameOver h2{
+    font-size: 8.5vw;
+    margin-bottom: 5px;
+}
+
 h2, h4{
     margin: 0;
     font-family: 'Press Start 2P', sans-serif;
@@ -91,8 +96,17 @@ main div div{
     margin: 0 0 1px 0;
 }
 
+#score{
+    font-size: 5vw;
+}
+
 #hiScore{
+    font-size: 5vw;
     margin-left: 3px;
+}
+
+main div div i{
+    font-size: 5vw;
 }
 
 section{
@@ -196,3 +210,27 @@ section{
         opacity: 0;
     }
 }
+
+/* Media queries */
+@media only screen and (min-width: 374px) {
+    canvas{
+        height: 350px;
+        width: 350px;
+    }
+}
+  
+@media only screen and (min-width: 410px) {
+    canvas{
+        height: 380px;
+        width: 380px;
+    }
+    #score{
+        font-size: 16pt;
+    }
+    #hiScore{
+        font-size: 16pt;
+    }
+    main div div i{
+        font-size: 15pt;
+    }
+} 
