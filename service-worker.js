@@ -1,5 +1,5 @@
 // CACHE NAME
-let cacheName = 'Snake-v1';
+let cacheName = 'Snake-v2';
 
 // CACHE FILES
 let filesToCache = [

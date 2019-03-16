@@ -60,7 +60,7 @@ function faceDirection(event) {
         face = 'DOWN'
     }
     else if (key == 32) {
-        cheat == 'OFF' ? cheat = 'ON' : cheat = 'OFF'
+        // cheat == 'OFF' ? cheat = 'ON' : cheat = 'OFF'
     }
 }
 
@@ -149,6 +149,7 @@ let gameOn = setInterval(draw, 100);
 let dPadCenterDefault = document.querySelector('#centerDefault')
 let dPadCenterRetry = document.querySelector('#centerRetry')
 let gameOverScreen = document.querySelector('#gameOver')
+let pcCenterRetry = document.querySelector('#centerRetry2')
 
 function gameOver() {
     clearInterval(gameOn)
@@ -157,6 +158,9 @@ function gameOver() {
     gameOverScreen.style.display = 'flex'
     console.log('over')
     dPadCenterRetry.onclick = () => {
+        reset()
+    }
+    pcCenterRetry.onclick = () => {
         reset()
     }
 }
@@ -183,9 +187,12 @@ function reset() {
 
 if ( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent.toLowerCase())) {
     console.log('not mobile')
+    let dPad = document.querySelector('section')
+    dPad.style.display = 'none'
     let howtoPlay = document.querySelector('#howToPlayPc')
     howtoPlay.style.display = 'flex';
     // setTimeout(timeOutModal = () => {howtoPlay.style.display = 'none'}, 10000);
+    pcCenterRetry.style.display = 'flex';
 };
 
 // Detects if is iOS
