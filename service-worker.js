@@ -6,7 +6,9 @@ let filesToCache = [
     './',
     './index.html',
     './main.js',
-    './main.css'
+    './main.css',
+    './sfx/die.mp3',
+    './sfx/eat.wav'
 ];
 
 self.addEventListener('install', function(event) {

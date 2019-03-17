@@ -22,6 +22,8 @@ let food = {
     y: Math.floor((Math.random() * 24)) * squareSize
 }
 
+const eatAudio = new Audio('sfx/eat.wav');
+const dieAudio = new Audio('sfx/die.mp3');
 
 let face;
 
@@ -118,6 +120,7 @@ function draw() {
     let domHiScore = document.querySelector('#hiScore');
     if (snakeHeadX == food.x && snakeHeadY == food.y) {
         fruitsEaten++
+        eatAudio.play()
         foodGen(snake)
     } else if (cheat == 'OFF') {
         localStorage.getItem('hiScore') == null ? hiScore = 0 : '';
@@ -138,6 +141,7 @@ function draw() {
         snakeHeadY < 0 || snakeHeadY >= canvasSize ||
         bumpedInto(newSnakeHeadPosition, snake)) {
         gameOver()
+        dieAudio.play()
     }
 
     snake.unshift(newSnakeHeadPosition)
@@ -184,7 +188,7 @@ function reset() {
     gameOverScreen.style.display = 'none'
 }
 
-
+// Detects mobile devices
 if ( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent.toLowerCase())) {
     console.log('not mobile')
     let dPad = document.querySelector('section')
