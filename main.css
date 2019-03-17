@@ -169,7 +169,7 @@ section{
     display: none;
 }
 
-
+/* iOS modal */
 .iosAlertBoxWebApp{
     position: absolute;
     bottom: -15%;

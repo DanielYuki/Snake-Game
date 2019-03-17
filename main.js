@@ -7,6 +7,7 @@ const squareSize = (canvasSize / 24);
 
 let fruitsEaten = 0;
 let multiplier = 1;
+// localStorage
 let hiScore = localStorage.getItem('hiScore');
 
 // Snake is an array
@@ -22,11 +23,12 @@ let food = {
     y: Math.floor((Math.random() * 24)) * squareSize
 }
 
+// SFXs
 const eatAudio = new Audio('sfx/eat.wav');
 const dieAudio = new Audio('sfx/die.mp3');
 
+// face direction
 let face;
-
 
 let upButton = document.querySelector('#upButton');
 let leftButton = document.querySelector('#leftButton');
@@ -66,6 +68,7 @@ function faceDirection(event) {
     }
 }
 
+// Checks if snakeHead position = snakeBody position, if it is, GameOver
 function bumpedInto(head, snake) {
     for (let i = 0; i < snake.length; i++) {
         if (head.x == snake[i].x && head.y == snake[i].y) {
@@ -74,6 +77,7 @@ function bumpedInto(head, snake) {
     }
 }
 
+// generates food randomly
 function foodGen(snake) {
     food = {
         x: Math.floor((Math.random() * 24)) * squareSize,
@@ -89,10 +93,12 @@ function foodGen(snake) {
     }
 }
 
+// main function
 function draw() {
     ctx.fillStyle = "#f0f7da"
     ctx.fillRect(0, 0, canvasSize, canvasSize)
 
+    //draw snake
     for (let i = 0; i < snake.length; i++) {
         ctx.fillStyle = (i == 0) ? "#234d20" : "#36802d	";
         ctx.fillRect(snake[i].x, snake[i].y, squareSize, squareSize);
@@ -101,6 +107,7 @@ function draw() {
         ctx.strokeRect(snake[i].x, snake[i].y, squareSize, squareSize);
     }
 
+    //draw food
     ctx.fillStyle = '#ff3232'
     ctx.strokeStyle = 'red'
     ctx.strokeRect(food.x, food.y, squareSize, squareSize)
@@ -110,23 +117,28 @@ function draw() {
     let snakeHeadX = snake[0].x;
     let snakeHeadY = snake[0].y;
 
+    // snake's direction
     (face == 'LEFT') ? snakeHeadX -= squareSize : '';
     (face == 'UP') ? snakeHeadY -= squareSize : '';
     (face == 'RIGHT') ? snakeHeadX += squareSize : '';
     (face == 'DOWN') ? snakeHeadY += squareSize : '';
 
+    // points System
     let score = ((fruitsEaten * 10) * multiplier);
     let domScore = document.querySelector('#score');
     let domHiScore = document.querySelector('#hiScore');
+    // checks if snakeHead = FoodPosition
     if (snakeHeadX == food.x && snakeHeadY == food.y) {
         fruitsEaten++
         eatAudio.play()
         foodGen(snake)
     } else if (cheat == 'OFF') {
         localStorage.getItem('hiScore') == null ? hiScore = 0 : '';
+        // delete snake's tail Position
         snake.pop();
     }
 
+    // new Hi-score system, basically
     score > hiScore ? hiScore = score : '';
     localStorage.setItem('hiScore', hiScore)
     domScore.textContent = `Score:${score}`
@@ -137,6 +149,7 @@ function draw() {
         y: snakeHeadY
     }
 
+    // basic 
     if (snakeHeadX < 0 || snakeHeadX >= canvasSize ||
         snakeHeadY < 0 || snakeHeadY >= canvasSize ||
         bumpedInto(newSnakeHeadPosition, snake)) {
@@ -144,17 +157,20 @@ function draw() {
         dieAudio.play()
     }
 
+    // SnakeHead new position
     snake.unshift(newSnakeHeadPosition)
 }
 
+//refresh game every 100ms
 let gameOn = setInterval(draw, 100);
 
-
+// dpad movement system
 let dPadCenterDefault = document.querySelector('#centerDefault')
 let dPadCenterRetry = document.querySelector('#centerRetry')
 let gameOverScreen = document.querySelector('#gameOver')
 let pcCenterRetry = document.querySelector('#centerRetry2')
 
+//game over...
 function gameOver() {
     clearInterval(gameOn)
     dPadCenterDefault.style.display = 'none';
@@ -169,6 +185,7 @@ function gameOver() {
     }
 }
 
+// reset game
 function reset() {
     snake = [];
     snake[0] = {
